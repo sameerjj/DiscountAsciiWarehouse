@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">DiscountAsciiWarehouse</string>
+    <string name="app_name">Discount Ascii Warehouse</string>
+    <string name="buy_now">BUY NOW!</string>
+    <string name="limited_stock">(Only 1 more in stock!)</string>
 </resources>
