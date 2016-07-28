@@ -2,4 +2,6 @@
     <string name="app_name">Discount Ascii Warehouse</string>
     <string name="buy_now">BUY NOW!</string>
     <string name="limited_stock">(Only 1 more in stock!)</string>
+    <string name="search">SEARCH</string>
+    <string name="ok">ok</string>
 </resources>
