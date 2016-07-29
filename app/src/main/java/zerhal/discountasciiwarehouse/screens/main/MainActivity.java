@@ -1,4 +1,4 @@
-package zerhal.discountasciiwarehouse.screens;
+package zerhal.discountasciiwarehouse.screens.main;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
