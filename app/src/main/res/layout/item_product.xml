@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/product_gray_background"
+
     >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/product_gray_background"
+        >
 
-    <TextView
-        android:id="@+id/"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="80dp"
-        android:textSize="@dimen/product_face_textSize"
-        android:text="( ⚆ _ ⚆ )"
-        android:textColor="@color/text_black"
-        android:layout_weight="1"
-        />
+        <TextView
+            android:id="@+id/product_text_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/product_face_textSize"
+            android:gravity="center_vertical"
+            android:text="( ⚆ _ ⚆ )"
+            android:textColor="@color/text_black"
+            android:layout_weight="1"
+            />
 
-    <TextView
-        android:id="@+id/product_text_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
-        android:textColor="@color/text_black"
-        android:textSize="@dimen/product_cost_textSize"
-        android:text="$2.51"
-        />
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/product_text_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/product_cost_textSize"
+            android:text="$2.51"
+            />
+        <!--<FrameLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!---->
+        <!--/>-->
+        <!--</FrameLayout>-->
         <Button
             android:id="@+id/product_button_buy"
             android:layout_width="match_parent"
@@ -39,16 +48,18 @@
             android:textColor="@color/text_white"
             android:background="@drawable/buy_button"
             />
-        <TextView
-            android:id="@+id/product_text_buy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="14dp"
-            android:textColor="@color/text_white"
-            android:textSize="12sp"
-            android:text="@string/limited_stock"
-            />
-    </FrameLayout>
 
-</LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/product_text_buy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:paddingBottom="10dp"
+        android:textColor="@color/text_white"
+        android:textSize="12sp"
+        android:text="@string/limited_stock" />
+
+</FrameLayout>

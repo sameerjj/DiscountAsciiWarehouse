@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".screens.MainActivity">
+    android:background="@android:color/white"
+    tools:context=".screens.main.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="bottom"
             />
 
         <Button
@@ -43,7 +44,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_reyclerview_product"
+        android:id="@+id/main_recyclerview_product"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -51,7 +52,5 @@
         android:horizontalSpacing="10dp"
         android:verticalSpacing="10dp"
         >
-
-
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

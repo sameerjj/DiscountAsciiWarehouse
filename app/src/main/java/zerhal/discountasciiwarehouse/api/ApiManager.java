@@ -29,9 +29,13 @@ public class ApiManager {
 
     public static synchronized void initializeInstance(Context context) {
         if (sInstance == null) {
-            sInstance = new ApiManager();
+            sInstance = new ApiManager(context);
             sInstance.createOkHttpClient();
         }
+    }
+
+    private ApiManager(Context context){
+        mContext = context;
     }
 
     public static synchronized ApiManager getInstance(){
@@ -69,15 +73,20 @@ public class ApiManager {
     }
 
     public void getProductsRequest(int limit, int skip, String search, boolean onlyInStock, Callback callback){
-        HttpUrl url = new HttpUrl.Builder()
-                .host("http://74.50.59.155:5000/api/search")
-                .addQueryParameter("limit", Integer.toString(limit))
-                .addQueryParameter("skip", Integer.toString(skip))
-                .addQueryParameter("q", search)
-                .addQueryParameter("onlyInStock", Boolean.toString(onlyInStock))
-                .build();
+        HttpUrl url =
+                new HttpUrl.Builder()
+                        .scheme("http")
+                        .host("74.50.59.155")
+                        .port(5000)
+                        .addPathSegments("api/search")
+                        .addQueryParameter("limit", Integer.toString(limit))
+                        .addQueryParameter("skip", Integer.toString(skip))
+                        .addQueryParameter("q", search)
+                        .addQueryParameter("onlyInStock", Boolean.toString(onlyInStock))
+                        .build();
 
         Request request = new Request.Builder()
+//                .url("http://74.50.59.155:5000/api/search?onlyInStock=true&limit=0&skip=12")
                 .url(url)
                 .build();
 

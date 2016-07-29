@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="product_gray_background">#EFEFEF</color>
+    <color name="product_gray_background">#E7E7E7</color>
     <color name="text_black">@android:color/black</color>
     <color name="text_white">@android:color/white</color>
     <color name="product_button_gray">#666666</color>
