@@ -34,12 +34,11 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.main_recyclerview_product)
     RecyclerView recyclerViewProduct;
 
-//    int skipCursor = 0;
-    int numVisibleItems = 6;
+    public static int NUM_VISIBLE_ITEMS = 6;
 
     Gson gson = new Gson();
 
-    ArrayList<Product> products = new ArrayList<>(numVisibleItems);
+    ArrayList<Product> products = new ArrayList<>(NUM_VISIBLE_ITEMS -1);
     ProductsAdapter mAdapter;
 
     @Override
@@ -49,13 +48,30 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         configureGrid();
         mAdapter = new ProductsAdapter(products);
-        requestProducts();
+        recyclerViewProduct.setAdapter(mAdapter);
+        recyclerViewProduct.addOnScrollListener(new OnVerticalScrollListener());
+        //TODO: could dynamically calculate visible items count for wider device support
+//        NUM_VISIBLE_ITEMS = recyclerViewProduct.getChildCount();
+        requestNewProducts();
     }
 
-    void requestProducts(){
+    @OnClick({R.id.main_checkbox_instock, R.id.main_button_search})
+    void requestNewProducts(){
+        products.clear();
+        mAdapter.setAuxText(getString(R.string.loading));
+        mAdapter.notifyDataSetChanged();
+        requestProducts(NUM_VISIBLE_ITEMS -1);
+    }
+
+    void requestMoreProducts(){
+        mAdapter.setAuxText(getString(R.string.loading));
+        requestProducts(NUM_VISIBLE_ITEMS);
+    }
+
+    void requestProducts(int numItems){
         String searchText = editSearch.getText().toString();
         boolean isInStockChecked = checkBoxInStock.isChecked();
-        ApiManager.getInstance().getProductsRequest(numVisibleItems, products.size(), searchText, isInStockChecked, new Callback() {
+        ApiManager.getInstance().getProductsRequest(numItems, products.size(), searchText, isInStockChecked, new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
                 runOnUiThread(new Runnable() {
@@ -68,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                //parse NDJSON string return by splitting on newlines and parsing using GSON
                 String ndJsonString = response.body().string();
                 String[] jsonStrings = ndJsonString.split("\n");
                 for (String json: jsonStrings){
@@ -75,24 +92,23 @@ public class MainActivity extends AppCompatActivity {
                     if (product != null)
                         products.add(product);
                 }
+                //update grid
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        recyclerViewProduct.setAdapter(mAdapter);
+                        if (products.size() > 0)
+                            mAdapter.setAuxText(getString(R.string.see_more));
+                        else
+                            mAdapter.setAuxText(getString(R.string.no_results));
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
             }
         });
     }
 
-    @OnClick({R.id.main_checkbox_instock, R.id.main_button_search})
-    void refreshProducts(){
-        products.clear();
-        recyclerViewProduct.setAdapter(mAdapter);
-        requestProducts();
-    }
-
     void configureGrid(){
+        //configure some items to be larger as seen in mockups
         GridLayoutManager manager = new GridLayoutManager(this, 7);
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -106,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         });
         recyclerViewProduct.setLayoutManager(manager);
 
+        //set item spacing
         int valueInPixels = (int) getResources().getDimension(R.dimen.product_grid_spacing);
         recyclerViewProduct.addItemDecoration(new SpacesItemDecoration(valueInPixels));
 
@@ -126,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             outRect.right = space;
             outRect.bottom = space;
 
-            // Add top margin only for the first item to avoid double space between items
+            //add top margin only for items not at the top of grid
             if (parent.getChildLayoutPosition(view) == 0) {
                 outRect.top = 0;
             } else {
@@ -135,6 +152,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //scroll listener for loading additional items when reached bottom of grid
+    public class OnVerticalScrollListener
+            extends RecyclerView.OnScrollListener {
+
+        @Override
+        public final void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            if (!recyclerView.canScrollVertically(1) && dy>0) {
+                onScrolledToBottom();
+            }
+        }
+
+        public void onScrolledToBottom(){
+            requestMoreProducts();
+        }
+    }
+
+    //standard dialog error if any errors in API fetch
     void showAlertDialogForError(Exception e){
         new AlertDialog.Builder(MainActivity.this)
                 .setTitle("Error")

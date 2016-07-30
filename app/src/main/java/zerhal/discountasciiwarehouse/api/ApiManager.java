@@ -43,6 +43,7 @@ public class ApiManager {
     }
 
     private void createOkHttpClient(){
+        //client with cache
         sInstance.mOkHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(cacheControlInterceptor())
                 .cache(createCache())
@@ -58,6 +59,8 @@ public class ApiManager {
         return new Cache(cache, CACHE_SIZE);
     }
 
+    //modify response headers to include caching information
+    //best practice for OkHTTP caching
     private Interceptor cacheControlInterceptor() {
         return new Interceptor() {
             @SuppressLint("DefaultLocale")
@@ -72,6 +75,7 @@ public class ApiManager {
         };
     }
 
+    //main activity products request
     public void getProductsRequest(int limit, int skip, String search, boolean onlyInStock, Callback callback){
         HttpUrl url =
                 new HttpUrl.Builder()

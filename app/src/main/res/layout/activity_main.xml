@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textSize="30sp"
+            android:textSize="@dimen/main_search_textSize"
             android:text="@string/search"
         />
 
@@ -37,7 +37,7 @@
             android:id="@+id/main_checkbox_instock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="@dimen/product_cost_textSize"
             android:text="ONLY SHOW \nITEMS IN STOCK"
             android:layout_gravity="center_vertical"
             />
@@ -49,8 +49,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         tools:listitem="@layout/item_product"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp"
+        android:scrollbars="vertical"
         >
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

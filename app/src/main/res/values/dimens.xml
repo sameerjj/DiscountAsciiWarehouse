@@ -5,4 +5,5 @@
     <dimen name="product_face_textSize">35sp</dimen>
     <dimen name="product_cost_textSize">20sp</dimen>
     <dimen name="product_grid_spacing">5dp</dimen>
+    <dimen name="main_search_textSize">30sp</dimen>
 </resources>

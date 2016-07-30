@@ -8,4 +8,5 @@
     <color name="text_white">@android:color/white</color>
     <color name="product_button_gray">#666666</color>
     <color name="product_button_red">#CC4024</color>
+    <color name="product_aux_gray">#B6B6B6</color>
 </resources>
