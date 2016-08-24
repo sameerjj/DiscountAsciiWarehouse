@@ -6,4 +6,6 @@
     <dimen name="product_cost_textSize">20sp</dimen>
     <dimen name="product_grid_spacing">5dp</dimen>
     <dimen name="main_search_textSize">30sp</dimen>
+    <dimen name="product_button_height">60dp</dimen>
+    <dimen name="padding">10dp</dimen>
 </resources>

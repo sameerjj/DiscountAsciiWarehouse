@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- had to use overlaying framelayout for "buy now" due to button rendering issues-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/product_gray_background"
-
     >
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/padding"
             android:textSize="@dimen/product_face_textSize"
             android:gravity="center_vertical"
             android:text="( ⚆ _ ⚆ )"
@@ -29,21 +29,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/padding"
             android:textColor="@color/text_black"
             android:textSize="@dimen/product_cost_textSize"
             android:text="$2.51"
             />
-        <!--<FrameLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-        <!---->
-        <!--/>-->
-        <!--</FrameLayout>-->
         <Button
             android:id="@+id/product_button_buy"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="@dimen/product_button_height"
             android:text="@string/buy_now"
             android:textColor="@color/text_white"
             android:background="@drawable/buy_button"
@@ -57,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:paddingBottom="10dp"
+        android:paddingBottom="@dimen/padding"
         android:textColor="@color/text_white"
         android:textSize="12sp"
         android:text="@string/limited_stock" />

@@ -22,6 +22,9 @@ public class ApiManager {
     public static int CACHE_TIME_LIMIT_SECONDS = 60 * 60; //1 hour
     static final String CACHE_NAME = "daw-cache";
 
+    public static String HOST_IP = "74.50.59.155";
+    public static int HOST_PORT = 5000;
+
     private static ApiManager sInstance;
 
     private Context mContext;
@@ -80,8 +83,8 @@ public class ApiManager {
         HttpUrl url =
                 new HttpUrl.Builder()
                         .scheme("http")
-                        .host("74.50.59.155")
-                        .port(5000)
+                        .host(HOST_IP)
+                        .port(HOST_PORT)
                         .addPathSegments("api/search")
                         .addQueryParameter("limit", Integer.toString(limit))
                         .addQueryParameter("skip", Integer.toString(skip))
@@ -90,7 +93,6 @@ public class ApiManager {
                         .build();
 
         Request request = new Request.Builder()
-//                .url("http://74.50.59.155:5000/api/search?onlyInStock=true&limit=0&skip=12")
                 .url(url)
                 .build();
 

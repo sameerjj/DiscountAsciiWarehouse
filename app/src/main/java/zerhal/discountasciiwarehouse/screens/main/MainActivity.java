@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -24,6 +22,8 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import zerhal.discountasciiwarehouse.R;
 import zerhal.discountasciiwarehouse.api.ApiManager;
+import zerhal.discountasciiwarehouse.helpers.Parser;
+import zerhal.discountasciiwarehouse.helpers.UIHelper;
 import zerhal.discountasciiwarehouse.models.Product;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,9 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static int NUM_VISIBLE_ITEMS = 6;
 
-    Gson gson = new Gson();
-
-    ArrayList<Product> products = new ArrayList<>(NUM_VISIBLE_ITEMS -1);
+    ArrayList<Product> products;
     ProductsAdapter mAdapter;
 
     @Override
@@ -77,21 +75,14 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        showAlertDialogForError(e);
+                        UIHelper.showAlertDialogForError(e, MainActivity.this);
                     }
                 });
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                //parse NDJSON string return by splitting on newlines and parsing using GSON
-                String ndJsonString = response.body().string();
-                String[] jsonStrings = ndJsonString.split("\n");
-                for (String json: jsonStrings){
-                    Product product = gson.fromJson(json, Product.class);
-                    if (product != null)
-                        products.add(product);
-                }
+                products = Parser.parseProducts(response.body().string());
                 //update grid
                 runOnUiThread(new Runnable() {
                     @Override
@@ -167,20 +158,4 @@ public class MainActivity extends AppCompatActivity {
             requestMoreProducts();
         }
     }
-
-    //standard dialog error if any errors in API fetch
-    void showAlertDialogForError(Exception e){
-        new AlertDialog.Builder(MainActivity.this)
-                .setTitle("Error")
-                .setMessage(e.getMessage())
-                .setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-//                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-    }
-
 }
